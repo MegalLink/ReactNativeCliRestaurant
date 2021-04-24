@@ -2,10 +2,11 @@
 import React from 'react'
 import {StyleSheet,View,ActivityIndicator,Text} from 'react-native'
 import {Overlay} from 'react-native-elements'
+import {colorPrimary,backgroundTheme} from '../theme/theme'
 const Loading=({isVisible,text})=>(
     <Overlay  isVisible={isVisible} overlayStyle={styles.overlay}>
         <View style={styles.view}>
-            <ActivityIndicator size="large" color="#006180"></ActivityIndicator>
+            <ActivityIndicator size="large" color={colorPrimary}></ActivityIndicator>
             {text&&<Text style={styles.text}>{text}</Text>}
         </View>
     </Overlay>
@@ -15,9 +16,9 @@ const styles=StyleSheet.create({
     overlay:{
         height:100,
         width:200,
-        backgroundColor:'#fff',
-        borderColor:'#006180',
-        borderWidth:2,
+        backgroundColor:backgroundTheme,
+        borderColor:colorPrimary,
+        borderWidth:6,
         borderRadius:10
     },
     view:{
@@ -26,7 +27,7 @@ const styles=StyleSheet.create({
         justifyContent:'center'
     },
     text:{
-        color:'#006180',
+        color:colorPrimary,
         textTransform:'uppercase',
         marginTop:10
     }

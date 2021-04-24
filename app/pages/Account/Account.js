@@ -10,7 +10,7 @@ const Account=()=>{
         const af=firebase.auth().onAuthStateChanged((user)=>{
             user?changeLogged(true):changeLogged(false)
         })
-        return af
+        // return af
     },[logged])
     if(logged==null){
         return (<Loading text="Cargando..." isVisible={true}></Loading>)
