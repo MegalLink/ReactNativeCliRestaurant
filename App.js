@@ -1,5 +1,8 @@
 import React from 'react';
 import Router from './app/routes/Router'
+import firebaseApp from './app/utils/firebase'
+
+
 import {
   Text,
   View,
@@ -8,7 +11,7 @@ import {
 } from 'react-native';
 
 const App = () => {
-  
+ 
   return (
    <Router/>
   );
