@@ -11,7 +11,7 @@ const UserGuest = () =>{
   <ScrollView style={styles.viewBody} centerContent={true}>
     <Image
       style={styles.image}
-      source={require('../../../assets/img/user-guest.jpg')}
+      source={require('../../../assets/img/account.png')}
       resizeMode="center"
     />
     <Text style={styles.title}>Consulta tu perfil en Delicias del Campo</Text>
