@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,20 +7,25 @@ import {Input, Icon,Button} from 'react-native-elements';
 import {colorPrimary} from '../../theme/theme';
 
 export default function RegisterForm() {
+    const [showPassord,changeShowPassword]=useState(false)
+    const [showConfirmPassord,changeConfirmShowPassword]=useState(false)
   return (
    
       <View style={styles.formContainer} >
          <Input
+            rightIcon={<Icon type='font-awesome-5' name='at' iconStyle={styles.iconRight}></Icon>}
             placeholder="Correo electrónico"
             containerStyle={styles.inputForm}
           />
           <Input
-            secureTextEntry={true}
+           rightIcon={<Icon type='font-awesome-5' name={!showPassord?'eye':'eye-slash'} iconStyle={styles.iconRight} onPress={()=>{changeShowPassword(!showPassord)}}></Icon>}
+            secureTextEntry={!showPassord}
             placeholder="Contraseña"
             containerStyle={styles.inputForm}
           />
           <Input
-            secureTextEntry={true}
+           rightIcon={<Icon type='font-awesome-5' name={!showConfirmPassord?'eye':'eye-slash'} iconStyle={styles.iconRight} onPress={()=>{changeConfirmShowPassword(!showConfirmPassord)}}></Icon>}
+            secureTextEntry={!showConfirmPassord}
             placeholder="Repetir contraseña"
             containerStyle={styles.inputForm}
           />
@@ -36,7 +41,8 @@ export default function RegisterForm() {
 const styles = StyleSheet.create({
     
   formContainer: {
-   
+   flex:1,
+   alignItems:'center',
     marginTop: 10,
   },
   inputForm: {
@@ -48,5 +54,8 @@ const styles = StyleSheet.create({
   btnRegister: {
     backgroundColor: colorPrimary,
   },
+  iconRight:{
+      color:colorPrimary
+  }
 
 });
