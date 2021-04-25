@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Account from '../pages/Account/Account';
+import Login from '../pages/Account/Login'
 const Stack = createStackNavigator();
 const AccountStack = () => {
   return (
@@ -11,6 +12,12 @@ const AccountStack = () => {
         component={Account}
         options={{title: 'Mi cuenta'}}
       />
+      {/* Al segundo stack automaticamente se le pone un back button al primer stack */}
+      <Stack.Screen name="Login"
+        component={Login}
+        options={{title: 'Iniciar Sesión'}}>
+        
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };

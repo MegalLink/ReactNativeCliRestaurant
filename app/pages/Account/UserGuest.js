@@ -2,7 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import {Button} from 'react-native-elements';
 import {colorPrimary} from '../../theme/theme'
-const UserGuest = () => (
+import {useNavigation} from '@react-navigation/native'
+const UserGuest = () =>{ 
+    const navigate=useNavigation()
+    
+    
+    return (
   <ScrollView style={styles.viewBody} centerContent={true}>
     <Image
       style={styles.image}
@@ -16,10 +21,11 @@ const UserGuest = () => (
       odio.
     </Text>
     <View style={styles.viewBtn}>
-      <Button title="Ver tu perfil" buttonStyle={styles.btn} containerStyle={styles.btnContainer} onPress={()=>{console.log("Pressed Button")}}/>
+        {/* El navigate(name) del stack */}
+      <Button title="Ver tu perfil" buttonStyle={styles.btn} containerStyle={styles.btnContainer} onPress={()=>{navigate.navigate("Login")}}/>
     </View>
   </ScrollView>
-);
+)};
 const styles = StyleSheet.create({
   viewBody: {
     marginLeft: 10,
