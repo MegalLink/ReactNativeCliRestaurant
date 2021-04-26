@@ -5,6 +5,7 @@ import {colorPrimary} from '../../theme/theme';
 import {validateEmail} from '../../utils/validations';
 import {useNavigation} from '@react-navigation/native'
 import * as firebase from 'firebase';
+import Loading from '../Loading'
 export default function RegisterForm() {
   const toastShow = texto => {
     ToastAndroid.show(texto, ToastAndroid.LONG, ToastAndroid.CENTER);
@@ -14,6 +15,7 @@ export default function RegisterForm() {
   const [showPassord, changeShowPassword] = useState(false);
   const [showConfirmPassord, changeConfirmShowPassword] = useState(false);
   const [formData, changeFormData] = useState(defaultForm);
+  const [loading,changeLoading]=useState(false)
   const onPressRegister = () => {
     changeConfirmShowPassword(false);
     changeShowPassword(false);
@@ -26,14 +28,16 @@ export default function RegisterForm() {
     } else if (formData.password.length < 6) {
       toastShow('La contraseña deben tener 6 caráctares');
     } else {
+      changeLoading(true)
       firebase
         .auth()
         .createUserWithEmailAndPassword(formData.email, formData.password)
         .then(res => {
-          
+          changeLoading(false)
           navigation.navigate("Account")
         })
         .catch(err => {
+          changeLoading(false)
           toastShow(err.message);
         });
     }
@@ -97,6 +101,7 @@ export default function RegisterForm() {
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btnRegister}
         onPress={onPressRegister}></Button>
+        <Loading isVisible={loading} text='Creando cuenta'></Loading>
     </View>
   );
 }
