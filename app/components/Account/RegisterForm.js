@@ -1,15 +1,42 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ToastAndroid} from 'react-native';
 import {Input, Icon, Button} from 'react-native-elements';
 import {colorPrimary} from '../../theme/theme';
-
+import {validateEmail} from '../../utils/validations';
+import {useNavigation} from '@react-navigation/native'
+import * as firebase from 'firebase';
 export default function RegisterForm() {
+  const toastShow = texto => {
+    ToastAndroid.show(texto, ToastAndroid.LONG, ToastAndroid.CENTER);
+  };
+  const navigation=useNavigation()
   const defaultForm = {email: '', password: '', confirmPassword: ''};
   const [showPassord, changeShowPassword] = useState(false);
   const [showConfirmPassord, changeConfirmShowPassword] = useState(false);
   const [formData, changeFormData] = useState(defaultForm);
   const onPressRegister = () => {
-    console.log(formData);
+    changeConfirmShowPassword(false);
+    changeShowPassword(false);
+    if (!formData.email || !formData.password || !formData.confirmPassword) {
+      toastShow('Todos los campos son obligatorios');
+    } else if (!validateEmail(formData.email)) {
+      toastShow('Email no valido');
+    } else if (formData.password !== formData.confirmPassword) {
+      toastShow('Las contraseñas deben ser iguales');
+    } else if (formData.password.length < 6) {
+      toastShow('La contraseña deben tener 6 caráctares');
+    } else {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(formData.email, formData.password)
+        .then(res => {
+          
+          navigation.navigate("Account")
+        })
+        .catch(err => {
+          toastShow(err.message);
+        });
+    }
   };
   const onChange = (text, type) => {
     changeFormData({...formData, [type]: text});
