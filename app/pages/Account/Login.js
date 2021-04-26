@@ -3,6 +3,7 @@ import {View,Text,StyleSheet,ScrollView,Image} from 'react-native'
 import {Divider} from 'react-native-elements'
 import {colorPrimary} from '../../theme/theme'
 import {useNavigation} from '@react-navigation/native'
+import LoginForm from '../../components/Account/LoginForm'
 export default function Login(){
 
     return(
@@ -11,7 +12,7 @@ export default function Login(){
                 <Image  style={styles.logo} source={require('../../../assets/img/login.png')} />
             </View>         
           <View style={styles.viewContainer}>
-              <Text>Login Fomr</Text>
+              <LoginForm></LoginForm>
              <CreateAccount></CreateAccount>
           </View>
           <Divider style={styles.divider}></Divider>

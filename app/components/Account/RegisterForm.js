@@ -66,7 +66,7 @@ export default function RegisterForm() {
         rightIcon={
           <Icon
             type="font-awesome-5"
-            name={!showPassord ? 'eye' : 'eye-slash'}
+            name={showPassord ? 'eye' : 'eye-slash'}
             iconStyle={styles.iconRight}
             onPress={() => {
               changeShowPassword(!showPassord);
@@ -83,7 +83,7 @@ export default function RegisterForm() {
         rightIcon={
           <Icon
             type="font-awesome-5"
-            name={!showConfirmPassord ? 'eye' : 'eye-slash'}
+            name={showConfirmPassord ? 'eye' : 'eye-slash'}
             iconStyle={styles.iconRight}
             onPress={() => {
               changeConfirmShowPassword(!showConfirmPassord);
