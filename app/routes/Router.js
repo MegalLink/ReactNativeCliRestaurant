@@ -7,7 +7,7 @@ import TopRestaurantsStack from './TopRestaurantsStack';
 import SearchStack from './SearchStack';
 import AccountStack from './AccountStack';
 import {Icon} from 'react-native-elements';
-import {colorPrimary} from '../theme/theme'
+import {colorPrimary,colorDark} from '../theme/theme'
 const screenOptions=(ruta,color)=>{
   let iconName;
   switch(ruta.name){
@@ -38,7 +38,7 @@ const Router = () => {
       <Tab.Navigator
         initialRouteName="restaurants"
         tabBarOptions={{
-          inactiveTintColor: '#646464',
+          inactiveTintColor: colorDark,
           activeTintColor:colorPrimary,
         }}
         screenOptions={({route})=>({
