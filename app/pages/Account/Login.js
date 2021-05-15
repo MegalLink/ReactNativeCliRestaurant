@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, Image,ToastAndroid} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import {Divider} from 'react-native-elements';
 import {colorPrimary, colorDanger} from '../../theme/theme';
 import {useNavigation} from '@react-navigation/native';
