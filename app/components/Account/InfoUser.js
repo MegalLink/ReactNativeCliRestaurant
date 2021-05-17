@@ -3,9 +3,11 @@ import {StyleSheet, View, Text, ToastAndroid} from 'react-native';
 import {Avatar} from 'react-native-elements';
 import {launchImageLibrary} from 'react-native-image-picker';
 import * as firebase from 'firebase';
-export default function InfoUser({userInfo}) {
+export default function InfoUser({userInfo,changeLoading,changeLoadingText}) {
   const {uid,photoURL, displayName, email} = userInfo;
-  console.log(userInfo)
+  const toastShow = texto => {
+    ToastAndroid.show(texto, ToastAndroid.LONG, ToastAndroid.CENTER);
+  };
   const changeAvatar = () => {
     let options = {
       storageOptions: {
@@ -15,18 +17,21 @@ export default function InfoUser({userInfo}) {
     };
     launchImageLibrary(options, response => {
       if (response.didCancel) {
-        ToastAndroid.show('Galeria cerrada', ToastAndroid.LONG, ToastAndroid.CENTER);
+        toastShow(`Error: ${response.error}`)
+      
       } else if (response.error) {
-        ToastAndroid.show(`Error: ${response.error}`,  ToastAndroid.LONG, ToastAndroid.CENTER);
+        toastShow('Galeria cerrada')
+       
       } else if (response.customButton) {
-        ToastAndroid.show(`${response.customButton}` ,ToastAndroid.LONG, ToastAndroid.CENTER);
+        toastShow(`${response.customButton}`)
       } else {
         uploadImage(response.uri)
           .then(() => {
             updatePhotoURL();
           })
           .catch(err => {
-            console.error(err);
+            toastShow("Error al actualizar")
+           
           });
       }
     });
@@ -35,10 +40,12 @@ export default function InfoUser({userInfo}) {
       firebase.storage().ref(`avatar/${uid}`).getDownloadURL().then(async (response)=>{
         const update={photoURL:response};
         await firebase.auth().currentUser.updateProfile(update);
-        console.log("ready")
+        changeLoading(false);
       })
   }
   const uploadImage = async uri => {
+    changeLoadingText("Actualizando avatar");
+    changeLoading(true);
     
     const response = await fetch(uri);
    

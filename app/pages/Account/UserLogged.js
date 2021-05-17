@@ -7,9 +7,7 @@ import * as firebase from 'firebase'
 import InfoUser from '../../components/Account/InfoUser'
 const UserLogged=()=>{
     
-    const toastShow = texto => {
-        ToastAndroid.show(texto, ToastAndroid.LONG, ToastAndroid.CENTER);
-      };
+    
       const [loading,changeLoading]=useState(false)
       const [loadingText,changeLoadingText]=useState('')
       const [userInfo,changeUserInfo]=useState(null)
@@ -23,7 +21,7 @@ const UserLogged=()=>{
       },[])
     return(
     <View style={styles.viewUserInfo}>
-        {userInfo&& <InfoUser userInfo={userInfo}></InfoUser>}
+        {userInfo&& <InfoUser userInfo={userInfo} changeLoading={changeLoading} changeLoadingText={changeLoadingText}></InfoUser>}
         
         <Text>AccountOptions</Text>
         <Button title="Cerrar sesión" onPress={()=>{firebase.auth().signOut()}} buttonStyle={styles.btnCloseSession} titleStyle={styles.titleBtnStyle}></Button>
