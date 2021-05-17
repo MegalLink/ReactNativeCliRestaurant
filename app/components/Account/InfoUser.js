@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {Avatar} from 'react-native-elements';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
+import * as firebase from 'firebase';
 export default function InfoUser({userInfo}) {
-  const {photoUrl,displayName,email}=userInfo
+  const {uid,photoUrl,displayName,email}=userInfo
   const changeAvatar=()=>{
     let options = {
       storageOptions: {
@@ -21,12 +22,18 @@ export default function InfoUser({userInfo}) {
         console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-        const source = { uri: response.uri };
-        console.log(response)
-        // console.log('response', JSON.stringify(response));
+       uploadImage(response.uri).then(()=>{
+         console.log("Subida")
+       }).catch((err)=>{console.error(err)});
       }
-    })
+    }) 
   }
+    const uploadImage=async (uri)=>{
+          const response=await fetch(uri);
+          const blob=await response.blob();
+          const ref=firebase.storage().ref().child(`avatar/${uid}`);
+          return ref.put(blob);
+    }
   return (
     <View style={styles.viewUserInfo}>
       <Avatar
