@@ -56,6 +56,7 @@ export default function RegisterForm() {
             name="at"
             iconStyle={styles.iconRight}></Icon>
         }
+        keyboardType="email-address"
         placeholder="Correo electrónico"
         containerStyle={styles.inputForm}
         onChangeText={text => {

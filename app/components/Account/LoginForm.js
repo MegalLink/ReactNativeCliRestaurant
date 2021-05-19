@@ -53,6 +53,7 @@ export default function LoginForm(){
             iconStyle={styles.iconRight}></Icon>
         }
         placeholder="Correo electrónico"
+        keyboardType="email-address"
         containerStyle={styles.inputForm}
         onChangeText={text => {
           onChange(text, 'email');
@@ -68,6 +69,7 @@ export default function LoginForm(){
               changeShowPassword(!showPassord);
             }}></Icon>
         }
+       
         secureTextEntry={!showPassord}
         placeholder="Contraseña"
         containerStyle={styles.inputForm}

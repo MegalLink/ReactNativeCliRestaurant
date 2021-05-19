@@ -5,25 +5,27 @@ import Loading from '../../components/Loading'
 import {backgroundTheme,colorPrimary,colorDark} from '../../theme/theme'
 import * as firebase from 'firebase'
 import InfoUser from '../../components/Account/InfoUser'
+import AccountOptions from '../../components/Account/AccountOptions'
 const UserLogged=()=>{
     
     
-      const [loading,changeLoading]=useState(false)
-      const [loadingText,changeLoadingText]=useState('')
-      const [userInfo,changeUserInfo]=useState(null)
+      const [loading,changeLoading]=useState(false);
+      const [loadingText,changeLoadingText]=useState('');
+      const [userInfo,changeUserInfo]=useState(null);
+      const [reloadUserInfo, setReloadUserInfo] = useState(false)
       useEffect(()=>{
           const unsubscribe=async ()=>{
               const user = await firebase.auth().currentUser;
               changeUserInfo(user)
           }
           unsubscribe()
+          setReloadUserInfo(false)
           return unsubscribe
-      },[])
+      },[reloadUserInfo])
     return(
     <View style={styles.viewUserInfo}>
         {userInfo&& <InfoUser userInfo={userInfo} changeLoading={changeLoading} changeLoadingText={changeLoadingText}></InfoUser>}
-        
-        <Text>AccountOptions</Text>
+        <AccountOptions userInfo={userInfo} setReloadUserInfo={setReloadUserInfo}></AccountOptions>
         <Button title="Cerrar sesión" onPress={()=>{firebase.auth().signOut()}} buttonStyle={styles.btnCloseSession} titleStyle={styles.titleBtnStyle}></Button>
         <Loading text={loadingText} isVisible={loading}></Loading>
     </View>
