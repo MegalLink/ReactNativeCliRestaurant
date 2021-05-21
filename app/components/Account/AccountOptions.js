@@ -2,28 +2,37 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {ListItem, Icon} from 'react-native-elements';
 import Modal from '../Modal';
-import ChangeDisplayNameForm from './ChangeDisplayNameForm'
-const AccountOptions = ({userInfo,setReloadUserInfo}) => {
-   
-    
+import ChangeDisplayNameForm from './ChangeDisplayNameForm';
+import ChangeEmailForm from './ChangeEmailForm';
+const AccountOptions = ({userInfo, setReloadUserInfo}) => {
   const [showModal, setShowModal] = useState(false);
   const [renderComponent, setRenderComponent] = useState(null);
   const selectedComponent = key => {
-      switch(key){
-          case "displayName":
-              setRenderComponent(<ChangeDisplayNameForm displayName={userInfo.displayName} setReloadUserInfo={setReloadUserInfo} setShowModal={setShowModal}></ChangeDisplayNameForm>)
-              break;
-          case "email":
-              setRenderComponent(<Text>Cambiando email</Text>)
-              break;
-        case "password":
-              setRenderComponent(<Text>Cambiando password</Text>)
-              break;
-          default:
-              setRenderComponent(null)
-              break;
-
-      }
+    switch (key) {
+      case 'displayName':
+        setRenderComponent(
+          <ChangeDisplayNameForm
+            displayName={userInfo.displayName}
+            setReloadUserInfo={setReloadUserInfo}
+            setShowModal={setShowModal}></ChangeDisplayNameForm>,
+        );
+        break;
+      case 'email':
+        setRenderComponent(
+          <ChangeEmailForm
+            email={userInfo.email}
+            setShowModal={setShowModal}
+            setReloadUserInfo={setReloadUserInfo}
+          />,
+        );
+        break;
+      case 'password':
+        setRenderComponent(<Text>Cambiando password</Text>);
+        break;
+      default:
+        setRenderComponent(null);
+        break;
+    }
     console.log(key);
     setShowModal(true);
   };
