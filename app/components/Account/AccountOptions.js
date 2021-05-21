@@ -4,6 +4,7 @@ import {ListItem, Icon} from 'react-native-elements';
 import Modal from '../Modal';
 import ChangeDisplayNameForm from './ChangeDisplayNameForm';
 import ChangeEmailForm from './ChangeEmailForm';
+import ChangePasswordForm from './ChangePasswordForm';
 const AccountOptions = ({userInfo, setReloadUserInfo}) => {
   const [showModal, setShowModal] = useState(false);
   const [renderComponent, setRenderComponent] = useState(null);
@@ -27,7 +28,10 @@ const AccountOptions = ({userInfo, setReloadUserInfo}) => {
         );
         break;
       case 'password':
-        setRenderComponent(<Text>Cambiando password</Text>);
+        setRenderComponent(<ChangePasswordForm
+          setShowModal={setShowModal}
+          setReloadUserInfo={setReloadUserInfo}
+        />);
         break;
       default:
         setRenderComponent(null);
